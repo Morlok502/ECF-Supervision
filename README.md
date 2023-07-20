@@ -19,19 +19,24 @@ ___
 
 - Utilisation d'elastic cloud (essai de 14 jours gratuits).  
 On dispose d'une instance avec la stack Elasticsearch + kibana + Logstash.  
-On peut alors créer et déployer un agent (en tant que DAemonSet) dans notre cluster aws eks, afin d'envoyer les metrics à notre compte kibana.  
+- On créé alors un déploiement pour récueillir et centraliser les données de notre cluster EKS.  
+- On installe ensuite un plugin Kubernetes dans notre serveur ElasticSearch
+- On peut alors créer et déployer un agent (en tant que DAemonSet) dans notre cluster aws eks, afin d'envoyer les metrics à notre serveur Elasticsearch.  
 On peut procéder ainsi (voir [documentation officielle](https://www.elastic.co/guide/en/fleet/8.8/running-on-kubernetes-managed-by-fleet.html#running-on-kubernetes-managed-by-fleet))  
 ![agent](img/image.png)  
-
 - Une fois l'agent déployé dans notre cluster Kubernetes, on commence à recevoir des logs dans Elasticsearch   
 ![logs](img/image-1.png)
 
-- Ajout dans elastic de 2 monitors (Single Page Browser Test). Un premier pour le front Angular, et un deuxième pour le back nestjs.  
+- Ajout dans Kibana de 2 monitors (Single Page Browser Test). Un premier pour le front Angular, et un deuxième pour le back nestjs.  
 Ces monitors envoients des requêtes http, afin de voir si la page répond correctement. 
 ![monitor](img/image-2.png)  
 (Les Alertes présentes sur cette capture correspond aux instant où j'avais coupé volontairement les instances)
 
 #### 2. Mettez en place un kibana et connectez-le au élasticsearch. Montrez des exemples de recherches sur les logs (kibana queries)
+
+Dans Kibana, en se rendant dans la partie `Analytics > Discover`, on peut switcher entre des metrics, ou des logs recueillis, puis choisir les champs qui nous intéressent et requêter dedans.  
+Par exemple ci-dessous, un échantillon qui montre des logs, avec leur level et le message d'erreur associé :  
+![Alt text](img/image-3.png)  
 
 ## Sources utilisées  
 
